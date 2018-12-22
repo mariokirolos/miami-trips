@@ -1,0 +1,16 @@
+{
+    "name": "admin/miami-trips",
+    "description": "This plugin will control all the trips Miami will create",
+    "authors": [
+        {
+            "name": "Mario Kirolos",
+            "email": "contact@mariofayek.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "^4.2"
+    },
+     "autoload":{
+        "psr-4":{"MiamiTrips\\": "./inc"}
+    }
+}

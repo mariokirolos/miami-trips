@@ -1,0 +1,20 @@
+.images .image {
+	margin:20px;
+	position: relative;
+}
+
+.images .image .remove{
+	position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e00047;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.images .image img{
+	width:70px;
+	height:70px;
+}
