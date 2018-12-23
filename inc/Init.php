@@ -23,7 +23,9 @@ class Init{
 			Api\Ajax::class,
 			Base\Database::class,
 			Functions\TemplateController::class,
-			Pages\Cities::class
+			Pages\Cities::class,
+			Pages\Hotels::class,
+			Pages\Clients::class,
 		);
 	}
 

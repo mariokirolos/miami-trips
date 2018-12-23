@@ -25,14 +25,6 @@ use MiamiTrips\Functions\imageUpload;
 		add_action( 'add_meta_boxes_miami_cities', array($this , 'cities_extra_fields') );
 		//Saving the extra fields
 		add_action( 'save_post_miami_cities', array($this , 'save_post') ); 
-
-		// //Update the table 
-		// add_action('manage_conference_booking_posts_columns' , array( $this , 'set_custom_columns'));
-
-		// //Set the table columns to the custom fields
-		// add_action('manage_conference_booking_posts_custom_column' , array( $this , 'set_custom_columns_data') , 10 , 2 );
-
-		// add_filter('manage_edit-conference_booking_sortable_columns' , array($this , 'custom_sortable_columns'));
 		
 	}
 
@@ -97,11 +89,16 @@ use MiamiTrips\Functions\imageUpload;
 	    global $post;
 	    $city = get_post_custom($post->ID);
 
-	    $city = json_decode($city['city_information'][0]);
+	    $country = $city_id = '';
 
-	    $country = isset($city->country)?$city->country:'';
-	    $city_id = isset($city->city_id)?$city->city_id:'';
 
+	    if(isset($city['city_information'])){
+		    $city = json_decode($city['city_information'][0]);
+
+		    $country = isset($city->country)?$city->country:'';
+		    $city_id = isset($city->city_id)?$city->city_id:'';
+
+	    }
 	?>	
 
 		<div class="row">
@@ -138,10 +135,15 @@ use MiamiTrips\Functions\imageUpload;
 
 	    $city = get_post_custom($post->ID);
 
-	    $city = json_decode($city['city_information'][0]);
+	    $city_images = [];
 
-	    $city_images = isset($city->city_images)?$city->city_images:[];
+	    if(isset($city['city_information'])){
+		
+			$city = json_decode($city['city_information'][0]);
 
+		    $city_images = isset($city->city_images)?$city->city_images:[];
+
+	    }
 
 	    $this->imageUpload = new imageUpload();
 
@@ -175,122 +177,10 @@ use MiamiTrips\Functions\imageUpload;
 	}
 
 
-	public function set_custom_columns($columns){
-
-		$title = $columns['title'];
-		$date = $columns['date'];
-		$conference = $columns['taxonomy-conferences'];
-
-		unset($columns['title'] , $columns['date'] , $columns['taxonomy-conferences']);
-
-
-
-
-		$columns['name'] = 'Names' ;
-		$columns['paid'] = 'Amount Paid';
-		$columns['remaining'] = 'Amount Left';
-		$columns['room_type'] = 'Room Type';
-		$columns['date'] = $date;
-
-
-
-
-
-
-		return $columns;
-	}
-
-
-	public function set_custom_columns_data($column , $postid ){
-
-		$custom = get_post_custom($postid);
-	    $number_ad = isset($custom["no_of_adults"][0])?$custom["no_of_adults"][0]:'';
-	    $number_ch = isset($custom["no_of_childs"][0])?$custom["no_of_childs"][0]:'';
-	    $bt_0_4 = isset($custom["age_between_0_and_4"][0])?$custom["age_between_0_and_4"][0]:'';
-	    $bt_5_11 = isset($custom["age_between_5_and_11"][0])?$custom["age_between_5_and_11"][0]:'';
-	    $Young_youth = isset($custom["Young_youth"][0])?$custom["Young_youth"][0]:'';
-	    $ch_grades = isset($custom["ch_grades"][0])?$custom["ch_grades"][0]:'';
-	    $paid = isset($custom["paid"][0])?$custom["paid"][0]:'';
-	    $remaining = isset($custom["remaining"][0])?$custom["remaining"][0]:'';
-	    
-
-	    $payment_method = isset($custom["payment_method"][0])?unserialize($custom["payment_method"][0]):'';
-		$check_numbers = isset($custom["check_numbers"][0])?unserialize($custom["check_numbers"][0]):'';
-	    $payment_amount = isset($custom["payment_amount"][0])?unserialize($custom["payment_amount"][0]):'';
-	    $payment_date = isset($custom["payment_date"][0])?unserialize($custom["payment_date"][0]):'';
-	    
-
-	    $room_numbers  = isset($custom["room_numbers"][0])?$custom["room_numbers"][0]:'';
-	    $hotelComments = isset($custom["hotelComments"][0])?$custom["hotelComments"][0]:'';
-		$extraComments = isset($custom["extraComments"][0])?$custom["extraComments"][0]:'';
-		$roomtype = isset($custom["room_type"][0])?$custom["room_type"][0]:'';
-
-		switch($column){
-			case 'name':
-			$hotelComments = (!empty($hotelComments))? $hotelComments :'<i>No Additional Comments</i>';
-
-			if(current_user_can('edit_post' , $postid ))
-				echo edit_post_link(get_the_title() , '<strong>' , '</strong>') .'<br />'. $hotelComments;
-			else
-				echo '<strong>' . get_the_title() .'</strong>'  .'<br />'. $hotelComments;
-
-				
-			break;
-			case 'paid':
-				echo $paid;
-			break;
-			case 'remaining':
-				echo $remaining;
-			break;
-			case 'room_type':
-				echo $roomtype;
-			break;
-		}
-	}
-
-	public function custom_sortable_columns($columns){
-		$columns['paid'] = 'paid';
-		$columns['remaining'] = 'remaining';
-		$columns['room_type'] = 'room_type';
-
-
-		return $columns;
-	}
-
-	public function getConferenceBookings($confid){
-		$posts_array = get_posts(
-		    array(
-		        'posts_per_page' => -1,
-		        'post_type' => 'conference_booking',
-		        'tax_query' => array(
-		            array(
-		                'taxonomy' => 'conferences',
-		                'field' => 'term_id',
-		                'terms' => $confid,
-		            )
-		        )
-		    )
-		);
-
-
-		$totalPaid = 0;
-		$totalRemaining = 0;
-
-		foreach($posts_array as $key => $post){
-			$custom = get_post_custom($post->ID);
-
-			$posts_array[$key]->{'paid'} = $custom['paid'][0];
-			$posts_array[$key]->{'remaining'} = $custom['remaining'][0];
-			$totalPaid +=  $custom['paid'][0];
-			$totalRemaining += $custom['remaining'][0];
-		}
-
-
-		$posts_array['totalPaid'] = $totalPaid;
-		$posts_array['totalRemaining'] = $totalRemaining;
-
-
-		 return $posts_array;
+	function getCities(){
+		return get_posts( array(
+			'post_type' => 'miami_cities'
+		) );
 	}
 
 
