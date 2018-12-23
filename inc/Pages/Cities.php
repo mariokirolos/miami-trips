@@ -68,7 +68,8 @@ use MiamiTrips\Functions\imageUpload;
 			'capability_type'     => 'post',
 			'supports'            => array(
 				'title',
-				'excerpt'
+				'excerpt',
+				'thumbnail'
 			),
 		);
 	

@@ -69,7 +69,8 @@ use MiamiTrips\Pages\Cities;
 			'capability_type'     => 'post',
 			'supports'            => array(
 				'title',
-				'excerpt'
+				'excerpt',
+				'thumbnail'
 			),
 		);
 	
