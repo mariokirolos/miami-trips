@@ -11,11 +11,12 @@
 namespace MiamiTrips\Pages;
 use MiamiTrips\Base\BaseController;
 use MiamiTrips\Functions\imageUpload;
-
+use MiamiTrips\Functions\Modal;
 
  class Cities extends BaseController{
 
  	public $imageUpload;
+ 	public $modal;
 
 	function register(){
 
@@ -155,6 +156,32 @@ use MiamiTrips\Functions\imageUpload;
 
 
 	    print $this->imageUpload->uploader($args);
+
+
+	    $this->modal = new Modal();
+
+			$errorModal = array(
+				'id'	=> 'ErrorModal' , 
+				'aria-labelledby'	=> 'confirm' , 
+				'header'	=> 'Error' , 
+				'body'	=> '...' , 
+			);
+
+			$confirmModal = array(
+				'id'	=> 'confirmModal' , 
+				'aria-labelledby'	=> 'error' , 
+				'header'	=> 'Confirm Deletion' , 
+				'body'	=> 'Are you sure you want to remove this night?' , 
+				'extrabtns' => array(
+					array(
+						'id' => 'ConfirmRemoveBTN' , 
+						'classes' => 'btn btn-danger' , 
+						'text' => 'Remove'
+					),
+				)
+			);
+			print $this->modal->modal($errorModal) . $this->modal->modal($confirmModal);
+
 
 	}
 

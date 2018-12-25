@@ -12,12 +12,14 @@ namespace MiamiTrips\Pages;
 use MiamiTrips\Base\BaseController;
 use MiamiTrips\Functions\imageUpload;
 use MiamiTrips\Pages\Cities;
+use MiamiTrips\Functions\Modal;
 
 
  class Hotels extends BaseController{
 
  	public $imageUpload;
  	public $cities;
+ 	public $modal;
 
 	function register(){
 
@@ -148,6 +150,31 @@ use MiamiTrips\Pages\Cities;
 
 	    print $this->imageUpload->uploader($args);
 
+
+	    $this->modal = new Modal();
+
+			$errorModal = array(
+				'id'	=> 'ErrorModal' , 
+				'aria-labelledby'	=> 'confirm' , 
+				'header'	=> 'Error' , 
+				'body'	=> '...' , 
+			);
+
+			$confirmModal = array(
+				'id'	=> 'confirmModal' , 
+				'aria-labelledby'	=> 'error' , 
+				'header'	=> 'Confirm Deletion' , 
+				'body'	=> 'Are you sure you want to remove this night?' , 
+				'extrabtns' => array(
+					array(
+						'id' => 'ConfirmRemoveBTN' , 
+						'classes' => 'btn btn-danger' , 
+						'text' => 'Remove'
+					),
+				)
+			);
+			print $this->modal->modal($errorModal) . $this->modal->modal($confirmModal);
+
 	}
 
 
@@ -168,5 +195,11 @@ use MiamiTrips\Pages\Cities;
    		update_post_meta($post->ID, "hotel_information", json_encode($hotel_information));
 	}
 
+
+	function getHotels(){
+		return get_posts(array(
+			'post_type' => 'miami_hotels'
+		) );
+	}
 
  }

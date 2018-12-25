@@ -22,3 +22,11 @@
 .error{
     background:#fc9c9c !important;
 }
+
+.night , .date{
+    margin-bottom:20px;
+}
+
+input[type="text"] , select {
+    margin-bottom:20px;
+}

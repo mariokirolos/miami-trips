@@ -26,6 +26,7 @@ class Init{
 			Pages\Cities::class,
 			Pages\Hotels::class,
 			Pages\Clients::class,
+			Pages\Trips::class,
 		);
 	}
 
