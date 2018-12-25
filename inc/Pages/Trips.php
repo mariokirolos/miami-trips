@@ -261,7 +261,6 @@ use MiamiTrips\Pages\Hotels;
 
 
 		    }
-			$includes = $excludes = $night = $day_title = $hotel = $date_from = $date_to  = $price = $rooms = $day_image = '';
 
 		endif;//End trip is found
 	}
@@ -363,10 +362,34 @@ use MiamiTrips\Pages\Hotels;
 	}
 
 	function trip_information(){
-		$includes = $excludes = $optionals = '';
+		$includes = $excludes = '';
+
+		global $post;
+	    $trip = get_post_custom($post->ID);
+		if(isset($trip['trip_information'])){
+			//Edit Trip
+			$trip = json_decode($trip['trip_information'][0]);
+			$includes = isset($trip->includes)?$trip->includes:'';
+			$excludes = isset($trip->excludes)?$trip->excludes:'';
+		}
+
+		?>
+		<div class="row">
+			<div class="col-md-6">
+				<textarea name="includes" cols="30" rows="10" class="form-control" placeholder="Trip Includes"><?php print $includes;?></textarea>
+			</div>
+			<div class="col-md-6">
+				<textarea name="excludes" cols="30" rows="10" class="form-control" placeholder="Trip Excludes"><?php print $excludes;?></textarea>
+			</div>
+		</div>
+		<?php
 	}
 
 	function trip_optionals(){
+
+		$optionals = '';
+
+?><i>To be added in Phase 2</i><?php
 			$this->modal = new Modal();
 
 			$errorModal = array(
@@ -409,6 +432,9 @@ use MiamiTrips\Pages\Hotels;
     							'price_sgl' => $_POST["price_sgl"] ,
     							'price_dbl' => $_POST["price_dbl"] ,
     							'no_of_rooms' => $_POST["no_of_rooms"] ,
+    							'includes' => $_POST["includes"] ,
+    							'excludes' => $_POST["excludes"] ,
+
 
     						);
 
