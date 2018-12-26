@@ -57,7 +57,7 @@ use MiamiTrips\Base\BaseController;
 			'menu_position'       => null,
 			'menu_icon'           => 'dashicons-groups',
 			'show_in_nav_menus'   => true,
-			'publicly_queryable'  => false,
+			'publicly_queryable'  => true,
 			'exclude_from_search' => true,
 			'has_archive'         => true,
 			'query_var'           => true,
