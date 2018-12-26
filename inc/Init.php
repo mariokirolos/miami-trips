@@ -22,11 +22,12 @@ class Init{
 			Base\Enqueue::class,
 			Api\Ajax::class,
 			Base\Database::class,
-			Functions\TemplateController::class,
 			Pages\Cities::class,
 			Pages\Hotels::class,
 			Pages\Clients::class,
 			Pages\Trips::class,
+
+			Functions\TemplateController::class,
 		);
 	}
 

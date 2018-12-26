@@ -19,49 +19,36 @@ class TemplateController extends BaseController {
 
 
 	public function register(){
-
-		$this->templates = array(
-			'templates/front-end/search-page.tpl.php'	=>	'Search Page Layout'
-		);
-
-		add_filter('theme_page_templates' , array( $this , 'custom_template') );
-		add_filter('template_include' , array($this , 'load_template'));
-
+		add_filter('single_template', array($this , 'trip_template') , 11);
 	}
 
 
-	public function custom_template( $templates) {
+
+	function trip_template($single) {
+
+	    global $post;
+
+	    /* Checks for single template by post type */
+	    $url = 'single.php';
+	    switch( $post->post_type ){
+	    	case 'miami_trips':
+	    		$url =  $this->plugin_url . 'templates/front-end/trip.tpl.php';
+	    	break;
+	    	// case 'miami_cities':
+	    	// break;
+	    	// case 'miami_hotels':
+	    	// break;
+	    	// case 'miami_clients':
+	    	// break;
+	    }
+
+	        if ( file_exists($url ) ) {
+	            return $url;
+	        }
+
+	    return $single;
+
+	}
 		
-		$templates = array_merge($templates , $this->templates );
-
-		return $templates;
-
-	}
-
-
-	public function load_template( $template ){
-
-		global $post;
-
-		if(! $post)
-			return $template;
-
-		$template_name = get_post_meta($post->ID , '_wp_page_template' , true );
-
-		if(! isset($this->templates[$template_name])){
-			return $template;
-		}
-
-		$file = $this->plugin_path . $template_name;
-
-
-		if(file_exists($file))
-			return $file;
-
-
-
-		return $template;
-
-	}
 
 }
