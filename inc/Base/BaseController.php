@@ -16,9 +16,6 @@ namespace MiamiTrips\Base;
  	public $plugin_path;
  	public $plugin_url;
  	public $plugin;
- 	public $managers = array();
- 	public $base_table_name;
- 	public $base_OCR_table;
  	public $wpdb;
  	public $coutryList;
 

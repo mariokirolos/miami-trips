@@ -28,11 +28,11 @@ class TemplateController extends BaseController {
 
 	    global $post;
 
+
 	    /* Checks for single template by post type */
-	    $url = 'single.php';
 	    switch( $post->post_type ){
 	    	case 'miami_trips':
-	    		$url =  $this->plugin_url . 'templates/front-end/trip.tpl.php';
+	    		$url =  $this->plugin_path . 'templates/front-end/trip.php';
 	    	break;
 	    	// case 'miami_cities':
 	    	// break;
@@ -40,9 +40,11 @@ class TemplateController extends BaseController {
 	    	// break;
 	    	// case 'miami_clients':
 	    	// break;
+	    	default:
+	    	$url = 'single.php';
+	    	break;
 	    }
-
-	        if ( file_exists($url ) ) {
+	        if ( file_exists($url) ) {
 	            return $url;
 	        }
 
