@@ -107,7 +107,7 @@ use MiamiTrips\Pages\Hotels;
 
 
 
-	    $meals = ['No Meals' , 'Breakfast' , 'Lunch' , 'Dinner'];
+	    $meals = ['Breakfast' , 'Lunch' , 'Dinner'];
 
 	    
 
@@ -179,13 +179,18 @@ use MiamiTrips\Pages\Hotels;
 			
 			if(isset($trip['trip_information'])){
 		
-				$trip = json_decode($trip['trip_information'][0]);
+				$trip = json_decode($trip['trip_information'][0] , true);
 
-			    $itinerary = isset($trip->itinerary)?$trip->itinerary:[];
-			    $day_image = isset($trip->day_image)?$trip->day_image:[];
-			    $day_title = isset($trip->day_title)?$trip->day_title:[];
-			    $db_meals = isset($trip->meals)?$trip->meals:[];
-			    $db_hotel = isset($trip->hotel)?$trip->hotel:[];
+			    // $itinerary = isset($trip->itinerary)?$trip->itinerary:[];
+			    // $day_image = isset($trip->day_image)?$trip->day_image:[];
+			    // $day_title = isset($trip->day_title)?$trip->day_title:[];
+			    // $db_meals = isset($trip->meals)?$trip->meals:[];
+			    // $db_hotel = isset($trip->hotel)?$trip->hotel:[];
+			    $itinerary = isset($trip['itinerary'])?$trip['itinerary']:[];
+			    $day_image = isset($trip['day_image'])?$trip['day_image']:[];
+			    $day_title = isset($trip['day_title'])?$trip['day_title']:[];
+			    $db_meals = isset($trip['meals'])?$trip['meals']:[];
+			    $db_hotel = isset($trip['hotel'])?$trip['hotel']:[];
 ?>
 
 		<div class="row">
@@ -372,6 +377,7 @@ use MiamiTrips\Pages\Hotels;
 			$trip = json_decode($trip['trip_information'][0]);
 			$includes = isset($trip->includes)?$trip->includes:'';
 			$excludes = isset($trip->excludes)?$trip->excludes:'';
+			$activityLevel = isset($trip->activityLevel)?$trip->activityLevel:'';
 		}
 
 		?>
@@ -381,6 +387,22 @@ use MiamiTrips\Pages\Hotels;
 			</div>
 			<div class="col-md-6">
 				<textarea name="excludes" cols="30" rows="10" class="form-control" placeholder="Trip Excludes"><?php print $excludes;?></textarea>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col-12">
+				<div class="form-group">
+					<label for="activityLevel">Activity Level</label>
+					<select name="activityLevel" id="activityLevel" class="form-control">
+						<?php 
+							for($i = 1; $i <= 10 ; $i++){
+								print '<option value="'. $i .'"';
+									print ($activityLevel == $i ) ? ' selected ' : '' ;
+								print '>'. $i .'</option>';
+							}
+						?>
+					</select>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -435,6 +457,7 @@ use MiamiTrips\Pages\Hotels;
     							'no_of_rooms' => $_POST["no_of_rooms"] ,
     							'includes' => $_POST["includes"] ,
     							'excludes' => $_POST["excludes"] ,
+    							'activityLevel' => $_POST["activityLevel"] ,
 
 
     						);
