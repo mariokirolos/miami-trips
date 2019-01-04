@@ -14,7 +14,6 @@ use MiamiTrips\Base\BaseController;
  class Clients extends BaseController{
 
  	public $imageUpload;
- 	public $cities;
 
 	function register(){
 
@@ -203,10 +202,6 @@ use MiamiTrips\Base\BaseController;
 	    $add1 = $add2 = $city = $state = $zipcode = $country =  '';
 
 
-	    $this->cities = new Cities();
-	    $cityList = $this->cities->getCities();
-
-
 	    //Update the CPT to be in one field
 	    if (isset($client['client_information'])){
 		    $client = json_decode($client['client_information'][0]);
@@ -237,16 +232,7 @@ use MiamiTrips\Base\BaseController;
 				<div class="col-md-6">
 					<div class="form-group">
 				    <label for="city">City</label>
-				    <select name="city" id="city" class="form-control">
-				    	<option value="">Choose City</option>
-				    	<?php 
-				    		foreach($cityList as $cityItem){
-				    			print '<option value="'. $cityItem->ID .'" ';
-				    				print ($cityItem->ID == $city) ? ' selected ': '' ;
-				    			print '>'. $cityItem->post_title .'</option>';
-				    		}
-				    	?>
-				    </select>
+				    <input type="text" name="city" id="city" class="form-control" >
 				  </div><!-- .form-group -->
 				</div>
 				<div class="col-md-6">
