@@ -82,12 +82,29 @@
     margin-bottom:70px;
 }
 
-.tripExtras{
+/* .tripExtras{
     position: absolute;
     bottom: 0px;
-}
+}*/
 
 .book-now{
-    margin-top:7px;
+    margin:7px;
     cursor: pointer;
+}
+
+.itinerary_day, .itinerary_day:hover{
+    text-decoration: none;
+}
+
+.day_replacer{
+    width:150px;
+    height:150px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    background: #f89720;
+    border:1px solid #c97208;
+    color:#FFF;
+    font-weight: bold;
+    text-decoration: none;
 }

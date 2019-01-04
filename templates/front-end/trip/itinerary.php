@@ -6,9 +6,6 @@ foreach($itinerary as $key => $day){
 	<div class="row">
 		<div class="col-md-5">
 			<?php print wp_get_attachment_image( $trip_days_images[$key] , 'full'); ?>
-		</div>
-		<div class="col-md-7 position-relative">
-			<p class="card-text"><?php print $itinerary[$key]; ?></p>
 			<div class="tripExtras col-12">
 				<div class="row">
 					<div class="col-6">Hotel: <?php 
@@ -32,6 +29,9 @@ foreach($itinerary as $key => $day){
 					?></div>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-7 position-relative">
+			<p class="card-text"><?php print $itinerary[$key]; ?></p>
 		</div>
 	</div>
 </div>

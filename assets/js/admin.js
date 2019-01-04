@@ -212,3 +212,16 @@ $(document).ready(function(){
 	}
 
 });
+
+
+
+
+$(window).load(function(){
+    //Disable the Title field for the Reservations
+    ConfirmationNumber
+    if (($("#post_type").length > 0)){
+        if($("#post_type").val() == 'miami_reservations'){
+            $('#title').attr("readonly", true);
+        }
+    }
+});

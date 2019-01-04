@@ -305,5 +305,10 @@ use MiamiTrips\Base\BaseController;
    		update_post_meta($post->ID, "client_information", json_encode($client_information));
 	}
 
+	function getAllClients(){
+		return get_posts( array(
+			'post_type' => 'miami_clients'
+		) );
+	}
 
  }

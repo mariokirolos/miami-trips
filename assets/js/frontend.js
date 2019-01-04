@@ -39,5 +39,7 @@ $(document).on('click' , '.itinerary_day' , function(e){
 $(document).on('click' , '.book-now' , function(e){
     e.preventDefault();
     trip_date = $(this).data('date');
-    console.log(trip_date);
+    $('#date_from option').removeAttr('selected');
+    $('#date_from option[value="' + trip_date + '"]').attr("selected", "selected");
 });
+

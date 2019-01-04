@@ -26,6 +26,7 @@ class Init{
 			Pages\Hotels::class,
 			Pages\Clients::class,
 			Pages\Trips::class,
+			Pages\Reservations::class,
 
 			Functions\TemplateController::class,
 		);

@@ -9,7 +9,7 @@
 		               <div class="panel panel-default">
 		                  <div class="panel-thumbnail">
 		                    <a href="#" data-target="<?php print $key; ?>" class="itinerary_day" title="<?php print get_the_title($day_image);?>" class="thumb">
-		                      <?php print wp_get_attachment_image( $day_image ); ?>
+		                      <?php print (!empty($day_image)) ? wp_get_attachment_image( $day_image ) : '<div class="day_replacer">Day '. ($key+1) .'</div>'  ; ?>
 		                    </a>
 		                    <h4><?php print $titles[$key]; ?></h4>
 		                  </div>

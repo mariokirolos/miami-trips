@@ -38,8 +38,6 @@ get_header();
 						<?php the_post_thumbnail(); ?>
 					</div>
 				</div>
-				
-
 				<div class="row mt-4">
 					<div class="col-12">
 						<?php include_once('trip/carousel.php'); ?>

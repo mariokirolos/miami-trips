@@ -467,4 +467,10 @@ use MiamiTrips\Pages\Hotels;
    		update_post_meta($post->ID, "trip_information", json_encode($trip_information));
 	}
 
+	function getAllTrips(){
+		return get_posts( array(
+			'post_type' => 'miami_trips'
+		) );
+	}
+
  }
