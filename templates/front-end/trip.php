@@ -54,6 +54,14 @@ get_header();
 						</div>
 					</div>
 				</div>
+
+				<div class="row mt-4">
+					<?php include_once('trip/generalnotes.php');?>
+				</div>
+
+				<div class="row mt-4">
+					<?php  include_once('trip/includes.php');  ?>
+				</div>
 				
 				<div class="row">
 					<div class="col-12">
