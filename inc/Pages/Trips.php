@@ -368,7 +368,7 @@ use MiamiTrips\Pages\Hotels;
 	}
 
 	function trip_information(){
-		$includes = $excludes = '';
+		$includes = $excludes = $activityLevel = $generalNotes = '';
 
 		global $post;
 	    $trip = get_post_custom($post->ID);
@@ -377,6 +377,7 @@ use MiamiTrips\Pages\Hotels;
 			$trip = json_decode($trip['trip_information'][0]);
 			$includes = isset($trip->includes)?$trip->includes:'';
 			$excludes = isset($trip->excludes)?$trip->excludes:'';
+			$generalNotes = isset($trip->generalNotes)?$trip->generalNotes:'';
 			$activityLevel = isset($trip->activityLevel)?$trip->activityLevel:'';
 		}
 
@@ -390,7 +391,7 @@ use MiamiTrips\Pages\Hotels;
 			</div>
 		</div>
 		<div class="row mt-4">
-			<div class="col-12">
+			<div class="col-6">
 				<div class="form-group">
 					<label for="activityLevel">Activity Level</label>
 					<select name="activityLevel" id="activityLevel" class="form-control">
@@ -403,6 +404,9 @@ use MiamiTrips\Pages\Hotels;
 						?>
 					</select>
 				</div>
+			</div>
+			<div class="col-md-6">
+				<textarea name="generalNotes" cols="30" rows="10" class="form-control" placeholder="General Notes"><?php print $generalNotes;?></textarea>
 			</div>
 		</div>
 		<?php
@@ -457,6 +461,7 @@ use MiamiTrips\Pages\Hotels;
     							'no_of_rooms' => $_POST["no_of_rooms"] ,
     							'includes' => $_POST["includes"] ,
     							'excludes' => $_POST["excludes"] ,
+    							'generalNotes' => $_POST["generalNotes"] ,
     							'activityLevel' => $_POST["activityLevel"] ,
 
 
